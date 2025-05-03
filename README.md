@@ -1,6 +1,8 @@
 # Apartment Rental Service
 
-## Технологічний стек
+Сервис аренды квартир с возможностью поиска, фильтрации и просмотра детальной информации.
+
+## Технологический стек
 
 ### Backend
 
@@ -18,6 +20,71 @@
 - **Tailwind CSS 3**
 - **Axios** для HTTP запитів
 - **Vite** для збірки проекту
+
+---
+
+## Запуск проекта
+
+1. Клонировать репозиторий:
+```bash
+git clone https://github.com/your-username/rental-service.git
+cd rental-service
+```
+
+2. Создать файлы окружения:
+```bash
+cp backend/.env-example backend/.env
+cp frontend/.env-example frontend/.env
+```
+
+3. Запустить проект с помощью Docker Compose:
+```bash
+docker compose build
+docker compose up
+```
+
+4. Создать миграции и применить их:
+```bash
+docker compose exec backend python manage.py makemigrations
+docker compose exec backend python manage.py migrate
+```
+
+5. Создать тестовые данные:
+```bash
+docker compose exec backend python manage.py create_test_data
+```
+
+6. Создать суперпользователя:
+```bash
+docker compose exec backend python manage.py createsuperuser
+```
+
+7. Открыть приложение в браузере:
+   - Frontend: http://localhost:5000
+   - Backend API: http://localhost:8000/api/v1/
+   - API документация: http://localhost:8000/api/v1/docs/
+   - Django admin: http://localhost:8000/admin/
+
+## API Endpoints
+
+- `GET /api/v1/apartments/` - Список всех квартир с фильтрами
+- `GET /api/v1/apartments/{slug}/` - Детали квартиры
+- `POST /api/v1/apartments/` - Создание новой квартиры (только для авторизованных пользователей)
+- `PUT/DELETE /api/v1/apartments/{slug}/` - Редактирование/удаление квартиры (только для владельца)
+
+## Функциональность
+
+### Backend
+- Модель Apartment с полями: name, slug, description, price, number_of_rooms, square, availability, owner, created_at, updated_at
+- API с фильтрацией по цене, количеству комнат, доступности и поиском по названию или описанию
+- Пагинация (10 элементов на страницу)
+- Автоматическое создание тестовых данных
+
+### Frontend
+- Страница со списком квартир с фильтрами
+- Страница детальной информации о квартире
+- Адаптивный дизайн для мобильных и десктопных устройств
+- Авторизация и хранение JWT-токена
 
 ---
 
@@ -97,23 +164,3 @@
   - Зберігання отриманого токену.
 
 - Всі сторінки повинні бути інтегровані з Backend, реалізувати сторінку для логіну з відповідною обробкою токенів.
-
----
-
-## Запуск проекту
-
-Щоб запустити проект, скористайтеся наступними командами:
-
-```bash
-docker compose build
-docker compose up
-```
-
----
-
-## Послідовність дій
-
-1. Клонуйте цей репозиторій на свій локальний комп'ютер.
-2. Запустіть проект за допомогою docker compose. Проект уже налаштований для роботи в середовищі розробки (dev).
-3. Виконайте завдання, зазначені в частинах Part 1 та Part 2.
-4. Завантажте код до власного репозиторію на GitHub у режимі private і додайте користувача mvk-mash у список колабораторів (Collaborators).
